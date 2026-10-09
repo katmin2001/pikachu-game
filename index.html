@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Game Pikachu</title>
+  <meta name="description" content="Game nối hình Pikachu kinh điển: nối 2 ô giống nhau để ăn điểm.">
+  <meta name="theme-color" content="#ffd54a">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Pikachu">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>⚡ Game Pikachu</h1>
+      <div class="stats">
+        <div class="stat">🎯 <span id="diff">Thường</span></div>
+        <div class="stat">Màn <span id="level">1</span></div>
+        <div class="stat">Điểm <span id="score">0</span></div>
+        <div class="stat">🏆 <span id="best">0</span></div>
+        <div class="stat combo hidden" id="comboStat">🔥 x<span id="comboMult">2</span></div>
+        <div class="stat" id="relaxBadge" style="display:none">🌿 Thư giãn</div>
+        <div class="stat">Còn <span id="remain">0</span> ô</div>
+        <div class="timer" id="timerWrap">
+          <div class="timer-bar" id="timerBar"></div>
+          <span id="timeText">0</span>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="hintBtn" title="Gợi ý một cặp có thể ăn">💡 Gợi ý (<span id="hintCount">3</span>)</button>
+        <button id="pauseBtn" title="Tạm dừng">⏸ Tạm dừng</button>
+        <button id="musicBtn" title="Bật/tắt nhạc nền">🎵</button>
+        <button id="soundBtn" title="Bật/tắt âm thanh">🔊</button>
+        <button id="restartBtn" title="Chơi lại màn hiện tại">↻ Chơi lại</button>
+      </div>
+    </header>
+
+    <main>
+      <div id="boardWrap">
+        <div id="board"></div>
+        <svg id="lines"></svg>
+      </div>
+    </main>
+
+    <footer>
+      <p>Cách chơi: bấm 2 ô <b>giống nhau</b> nối được bằng đường gấp khúc tối đa <b>2 lần</b> để ăn điểm. Ăn liên tiếp để kích <b>combo nhân điểm</b>! Hết nước đi sẽ tự động xáo bài.</p>
+    </footer>
+  </div>
+
+  <div id="overlay" class="overlay">
+    <div class="panel">
+      <h2 id="ovTitle">⚡ Game Pikachu</h2>
+      <p id="ovText">Nối 2 ô giống nhau bằng đường gấp khúc tối đa 2 lần để ăn điểm.</p>
+      <div class="opt-label">Độ khó</div>
+      <div id="diffBtns" class="opt-row">
+        <button class="diff easy" data-diff="easy">😌 Dễ</button>
+        <button class="diff normal sel" data-diff="normal">🙂 Thường</button>
+        <button class="diff hard" data-diff="hard">😈 Khó</button>
+      </div>
+      <div class="opt-label">Chế độ chơi</div>
+      <div id="modeBtns" class="opt-row">
+        <button class="mode sel" data-mode="timed">⏱ Tính giờ</button>
+        <button class="mode" data-mode="relax">🌿 Thư giãn</button>
+      </div>
+      <button id="continueBtn" class="big hidden" style="margin-top:12px">▶ Tiếp tục</button>
+      <div style="margin-top:12px"><button id="startBtn" class="big">Bắt đầu chơi</button></div>
+      <button id="ovBtn" class="big hidden">Bắt đầu</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
